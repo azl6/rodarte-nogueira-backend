@@ -1,5 +1,7 @@
 package com.azold6.rodartenogueirabackend.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +15,8 @@ public class Aluno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    private Character sexo;
+    private String sexo;
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate dataDeNascimento;
     private Double notaPrimeiroSemestre;
     private Double notaSegundoSemestre;
@@ -22,7 +25,7 @@ public class Aluno {
     public Aluno() {
     }
 
-    public Aluno(Integer id, String nome, Character sexo, LocalDate dataDeNascimento, Double notaPrimeiroSemestre, Double notaSegundoSemestre, Double notaTerceiroSemestre) {
+    public Aluno(Integer id, String nome, String sexo, LocalDate dataDeNascimento, Double notaPrimeiroSemestre, Double notaSegundoSemestre, Double notaTerceiroSemestre) {
         this.id = id;
         this.nome = nome;
         this.sexo = sexo;
@@ -30,6 +33,19 @@ public class Aluno {
         this.notaPrimeiroSemestre = notaPrimeiroSemestre;
         this.notaSegundoSemestre = notaSegundoSemestre;
         this.notaTerceiroSemestre = notaTerceiroSemestre;
+    }
+
+    @Override
+    public String toString() {
+        return "Aluno{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", sexo=" + sexo +
+                ", dataDeNascimento=" + dataDeNascimento +
+                ", notaPrimeiroSemestre=" + notaPrimeiroSemestre +
+                ", notaSegundoSemestre=" + notaSegundoSemestre +
+                ", notaTerceiroSemestre=" + notaTerceiroSemestre +
+                '}';
     }
 
     public Integer getId() {
@@ -48,11 +64,11 @@ public class Aluno {
         this.nome = nome;
     }
 
-    public Character getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(Character sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
