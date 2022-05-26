@@ -127,28 +127,19 @@ public class ApachePOIExcelRead {
             for(int i=0; i<objectArr.length; i++){
                 Cell cell = row.createCell(cellid++);
 
-                //FAZER CONDICIONAL PARA A MEDIA, QUE EH DOUBLE
                 if(i == 1)
                   cell.setCellValue((String) objectArr[i]);
+                else if (i==3)
+                  cell.setCellValue((Double) objectArr[i]);
                 else
                   cell.setCellValue((Integer) objectArr[i]);
             }
-
-//            for (Object obj : objectArr) {
-//                System.out.println(obj);
-////                Cell cell = row.createCell(cellid++);
-////                cell.setCellValue((String) obj);
-//            }
-            System.out.println("***************");
         }
 
-        // .xlsx is the format for Excel Sheets...
-        // writing the workbook into the file...
         FileOutputStream out = new FileOutputStream(
                 new File("./excelGerado.xlsx"));
 
         workbook.write(out);
         out.close();
     }
-
 }
