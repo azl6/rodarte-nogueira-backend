@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -133,9 +135,12 @@ public class Aluno {
     }
 
     public void calculaMedia(){
-        DecimalFormat df = new DecimalFormat("#,###.##");
         this.media = (this.notaPrimeiroSemestre +
                      this.notaSegundoSemestre +
                      this.notaTerceiroSemestre)/3;
+
+        BigDecimal bd = new BigDecimal(this.media).setScale(2, RoundingMode.HALF_DOWN);
+        this.media = bd.doubleValue();
     }
+
 }
