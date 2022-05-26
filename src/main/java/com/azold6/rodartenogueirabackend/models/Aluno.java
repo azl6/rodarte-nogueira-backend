@@ -12,8 +12,7 @@ import java.time.LocalDate;
 public class Aluno {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer identificacao;
     private String nome;
     private String sexo;
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
@@ -26,7 +25,7 @@ public class Aluno {
     }
 
     public Aluno(Integer id, String nome, String sexo, LocalDate dataDeNascimento, Double notaPrimeiroSemestre, Double notaSegundoSemestre, Double notaTerceiroSemestre) {
-        this.id = id;
+        this.identificacao = id;
         this.nome = nome;
         this.sexo = sexo;
         this.dataDeNascimento = dataDeNascimento;
@@ -38,7 +37,7 @@ public class Aluno {
     @Override
     public String toString() {
         return "Aluno{" +
-                "id=" + id +
+                "id=" + identificacao +
                 ", nome='" + nome + '\'' +
                 ", sexo=" + sexo +
                 ", dataDeNascimento=" + dataDeNascimento +
@@ -49,11 +48,11 @@ public class Aluno {
     }
 
     public Integer getId() {
-        return id;
+        return identificacao;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.identificacao = id;
     }
 
     public String getNome() {
