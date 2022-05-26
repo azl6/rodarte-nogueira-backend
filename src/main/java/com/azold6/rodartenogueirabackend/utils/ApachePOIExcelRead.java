@@ -1,5 +1,6 @@
 package com.azold6.rodartenogueirabackend.utils;
 
+import com.azold6.rodartenogueirabackend.dto.AlunoResponseDTO;
 import com.azold6.rodartenogueirabackend.models.Aluno;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -80,7 +81,7 @@ public class ApachePOIExcelRead {
         return alunos;
     }
 
-    public static void gerarExcel() throws IOException {
+    public static void gerarExcel(List<AlunoResponseDTO> alunosDto) throws IOException {
 
         final String NOME_TABELA = "excelGerado";
 
@@ -100,29 +101,22 @@ public class ApachePOIExcelRead {
 
         studentData.put(
                 "1",
-                new Object[] { "Roll No", "NAME", "Year" });
+                new Object[] { "Identificação", "Nome", "Idade", "Média" });
 
-        studentData.put("2", new Object[] { "128", "Aditya",
-                "2nd year" });
-
-        studentData.put(
-                "3",
-                new Object[] { "129", "Narayana", "2nd year" });
-
-        studentData.put("4", new Object[] { "130", "Mohan",
-                "2nd year" });
-
-        studentData.put("5", new Object[] { "131", "Radha",
-                "2nd year" });
-
-        studentData.put("6", new Object[] { "132", "Gopal",
-                "2nd year" });
+        for(int i=0; i<alunosDto.size(); i++){
+            studentData.put(String.valueOf(i),
+                    new Object[]{
+                            alunosDto.get(i).getIdentificacao(),
+                            alunosDto.get(i).getNome(),
+                            alunosDto.get(i).getIdade(),
+                            alunosDto.get(i).getMedia(),
+                    });
+        }
 
         Set<String> keyid = studentData.keySet();
 
         int rowid = 0;
 
-        // writing the data into the sheets...
 
         for (String key : keyid) {
 
@@ -130,10 +124,22 @@ public class ApachePOIExcelRead {
             Object[] objectArr = studentData.get(key);
             int cellid = 0;
 
-            for (Object obj : objectArr) {
+            for(int i=0; i<objectArr.length; i++){
                 Cell cell = row.createCell(cellid++);
-                cell.setCellValue((String)obj);
+
+                //FAZER CONDICIONAL PARA A MEDIA, QUE EH DOUBLE
+                if(i == 1)
+                  cell.setCellValue((String) objectArr[i]);
+                else
+                  cell.setCellValue((Integer) objectArr[i]);
             }
+
+//            for (Object obj : objectArr) {
+//                System.out.println(obj);
+////                Cell cell = row.createCell(cellid++);
+////                cell.setCellValue((String) obj);
+//            }
+            System.out.println("***************");
         }
 
         // .xlsx is the format for Excel Sheets...

@@ -27,7 +27,8 @@ public class AlunoController {
 
     @PostMapping("/gerarExcel")
     public void gerarTabelaExcel() throws IOException {
-        ApachePOIExcelRead.gerarExcel();
+        List<Aluno> alunos = alunoService.findAllByIdadeCrescente();
+        ApachePOIExcelRead.gerarExcel(alunoService.entityToDto(alunos));
         System.out.println("Excel gerado com sucesso!");
     }
 }
