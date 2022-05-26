@@ -134,9 +134,8 @@ public class Aluno {
 
     public void calculaMedia(){
         DecimalFormat df = new DecimalFormat("#,###.##");
-        this.media = Double.valueOf(df.format((
-                        this.notaPrimeiroSemestre +
-                        this.notaSegundoSemestre +
-                        this.notaTerceiroSemestre)/3));
+        this.media = (this.notaPrimeiroSemestre +
+                     this.notaSegundoSemestre +
+                     this.notaTerceiroSemestre)/3;
     }
 }
