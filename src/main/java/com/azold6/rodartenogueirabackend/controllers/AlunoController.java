@@ -1,5 +1,6 @@
 package com.azold6.rodartenogueirabackend.controllers;
 
+import com.azold6.rodartenogueirabackend.dto.AlunoResponseDTO;
 import com.azold6.rodartenogueirabackend.models.Aluno;
 import com.azold6.rodartenogueirabackend.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class AlunoController {
     private AlunoService alunoService;
 
     @GetMapping
-    public ResponseEntity<List<Aluno>> findAllByIdadeCrescente(){
+    public ResponseEntity<List<AlunoResponseDTO>> findAllByIdadeCrescente(){
         List<Aluno> alunos = alunoService.findAllByIdadeCrescente();
-        return ResponseEntity.ok().body(alunos);
+        return ResponseEntity.ok().body(alunoService.entityToDto(alunos));
     }
 }
