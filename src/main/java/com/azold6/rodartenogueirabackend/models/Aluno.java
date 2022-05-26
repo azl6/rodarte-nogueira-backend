@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 @Entity
@@ -20,18 +21,20 @@ public class Aluno {
     private Double notaPrimeiroSemestre;
     private Double notaSegundoSemestre;
     private Double notaTerceiroSemestre;
+    private Double media;
 
     public Aluno() {
     }
 
-    public Aluno(Integer id, String nome, String sexo, LocalDate dataDeNascimento, Double notaPrimeiroSemestre, Double notaSegundoSemestre, Double notaTerceiroSemestre) {
-        this.identificacao = id;
+    public Aluno(Integer identificacao, String nome, String sexo, LocalDate dataDeNascimento, Double notaPrimeiroSemestre, Double notaSegundoSemestre, Double notaTerceiroSemestre, Double media) {
+        this.identificacao = identificacao;
         this.nome = nome;
         this.sexo = sexo;
         this.dataDeNascimento = dataDeNascimento;
         this.notaPrimeiroSemestre = notaPrimeiroSemestre;
         this.notaSegundoSemestre = notaSegundoSemestre;
         this.notaTerceiroSemestre = notaTerceiroSemestre;
+        this.media = media;
     }
 
     @Override
@@ -47,12 +50,13 @@ public class Aluno {
                 '}';
     }
 
-    public Integer getId() {
+
+    public Integer getIdentificacao() {
         return identificacao;
     }
 
-    public void setId(Integer id) {
-        this.identificacao = id;
+    public void setIdentificacao(Integer identificacao) {
+        this.identificacao = identificacao;
     }
 
     public String getNome() {
@@ -101,5 +105,21 @@ public class Aluno {
 
     public void setNotaTerceiroSemestre(Double notaTerceiroSemestre) {
         this.notaTerceiroSemestre = notaTerceiroSemestre;
+    }
+
+    public Double getMedia() {
+        return media;
+    }
+
+    public void setMedia(Double media) {
+        this.media = media;
+    }
+
+    public void calculaMedia(){
+        DecimalFormat df = new DecimalFormat("#,###.##");
+        this.media = Double.valueOf(df.format((
+                        this.notaPrimeiroSemestre +
+                        this.notaSegundoSemestre +
+                        this.notaTerceiroSemestre)/3));
     }
 }

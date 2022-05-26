@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -43,11 +44,10 @@ public class ApachePOIExcelRead {
 
                 while (cellIterator.hasNext()) {
                     Cell currentCell = cellIterator.next();
-                    System.out.println("ITERAÇÃO " + iteracao);
 
                     switch (iteracao){
                         case 0:
-                            tempAluno.setId((int) currentCell.getNumericCellValue());
+                            tempAluno.setIdentificacao((int) currentCell.getNumericCellValue());
                             break;
                         case 1:
                             tempAluno.setNome(currentCell.getStringCellValue());
@@ -68,9 +68,9 @@ public class ApachePOIExcelRead {
                             tempAluno.setNotaTerceiroSemestre(currentCell.getNumericCellValue());
                             break;
                     }
-                    System.out.println(tempAluno);
                     iteracao++;
                 }
+                tempAluno.calculaMedia();
                 alunos.add(tempAluno);
             }
         } catch (FileNotFoundException e) {
