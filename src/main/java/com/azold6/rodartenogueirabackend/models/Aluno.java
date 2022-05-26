@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 public class Aluno {
@@ -22,11 +23,12 @@ public class Aluno {
     private Double notaSegundoSemestre;
     private Double notaTerceiroSemestre;
     private Double media;
+    private Integer idade;
 
     public Aluno() {
     }
 
-    public Aluno(Integer identificacao, String nome, String sexo, LocalDate dataDeNascimento, Double notaPrimeiroSemestre, Double notaSegundoSemestre, Double notaTerceiroSemestre, Double media) {
+    public Aluno(Integer identificacao, String nome, String sexo, LocalDate dataDeNascimento, Double notaPrimeiroSemestre, Double notaSegundoSemestre, Double notaTerceiroSemestre, Double media, Integer idade) {
         this.identificacao = identificacao;
         this.nome = nome;
         this.sexo = sexo;
@@ -35,6 +37,7 @@ public class Aluno {
         this.notaSegundoSemestre = notaSegundoSemestre;
         this.notaTerceiroSemestre = notaTerceiroSemestre;
         this.media = media;
+        this.idade = idade;
     }
 
     @Override
@@ -113,6 +116,21 @@ public class Aluno {
 
     public void setMedia(Double media) {
         this.media = media;
+    }
+
+    public Integer getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
+    }
+
+    public void calculaIdade(){
+        LocalDate dataDeNascimento = this.getDataDeNascimento();
+        LocalDate dataAtual = LocalDate.now();
+        Period period = Period.between(dataDeNascimento, dataAtual);
+        this.setIdade(period.getYears());
     }
 
     public void calculaMedia(){

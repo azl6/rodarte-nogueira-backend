@@ -70,6 +70,7 @@ public class ApachePOIExcelRead {
                     }
                     iteracao++;
                 }
+                tempAluno.calculaIdade();
                 tempAluno.calculaMedia();
                 alunos.add(tempAluno);
             }
