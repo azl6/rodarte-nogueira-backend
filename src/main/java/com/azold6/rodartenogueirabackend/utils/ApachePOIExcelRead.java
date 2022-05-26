@@ -2,25 +2,23 @@ package com.azold6.rodartenogueirabackend.utils;
 
 import com.azold6.rodartenogueirabackend.models.Aluno;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
+import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
 
 public class ApachePOIExcelRead {
 
     private static final String FILE_NAME = "dados.xlsx";
 
-    public static List<Aluno> readExcel() {
+    public static List<Aluno> lerExcel() {
         List<Aluno> alunos = new ArrayList<>();
         boolean isFirstRow = true;
 
@@ -81,4 +79,70 @@ public class ApachePOIExcelRead {
         }
         return alunos;
     }
+
+    public static void gerarExcel() throws IOException {
+
+        final String NOME_TABELA = "excelGerado";
+
+        // workbook object
+        XSSFWorkbook workbook = new XSSFWorkbook();
+
+        // spreadsheet object
+        XSSFSheet spreadsheet
+                = workbook.createSheet(NOME_TABELA);
+
+        // creating a row object
+        XSSFRow row;
+
+        // This data needs to be written (Object[])
+        Map<String, Object[]> studentData
+                = new TreeMap<String, Object[]>();
+
+        studentData.put(
+                "1",
+                new Object[] { "Roll No", "NAME", "Year" });
+
+        studentData.put("2", new Object[] { "128", "Aditya",
+                "2nd year" });
+
+        studentData.put(
+                "3",
+                new Object[] { "129", "Narayana", "2nd year" });
+
+        studentData.put("4", new Object[] { "130", "Mohan",
+                "2nd year" });
+
+        studentData.put("5", new Object[] { "131", "Radha",
+                "2nd year" });
+
+        studentData.put("6", new Object[] { "132", "Gopal",
+                "2nd year" });
+
+        Set<String> keyid = studentData.keySet();
+
+        int rowid = 0;
+
+        // writing the data into the sheets...
+
+        for (String key : keyid) {
+
+            row = spreadsheet.createRow(rowid++);
+            Object[] objectArr = studentData.get(key);
+            int cellid = 0;
+
+            for (Object obj : objectArr) {
+                Cell cell = row.createCell(cellid++);
+                cell.setCellValue((String)obj);
+            }
+        }
+
+        // .xlsx is the format for Excel Sheets...
+        // writing the workbook into the file...
+        FileOutputStream out = new FileOutputStream(
+                new File("./excelGerado.xlsx"));
+
+        workbook.write(out);
+        out.close();
+    }
+
 }

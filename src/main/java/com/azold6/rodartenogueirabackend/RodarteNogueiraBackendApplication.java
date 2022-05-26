@@ -22,7 +22,7 @@ public class RodarteNogueiraBackendApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		List<Aluno> alunos = ApachePOIExcelRead.readExcel();
+		List<Aluno> alunos = ApachePOIExcelRead.lerExcel();
 		alunoRepository.saveAll(alunos);
 	}
 }
