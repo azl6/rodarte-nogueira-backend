@@ -104,7 +104,7 @@ public class ApachePOIExcelRead {
                 new Object[] { "Identificação", "Nome", "Idade", "Média" });
 
         for(int i=0; i<alunosDto.size(); i++){
-            studentData.put(String.valueOf(i),
+            studentData.put(String.valueOf(i+2),
                     new Object[]{
                             alunosDto.get(i).getIdentificacao(),
                             alunosDto.get(i).getNome(),
@@ -127,12 +127,18 @@ public class ApachePOIExcelRead {
             for(int i=0; i<objectArr.length; i++){
                 Cell cell = row.createCell(cellid++);
 
-                if(i == 1)
-                  cell.setCellValue((String) objectArr[i]);
-                else if (i==3)
-                  cell.setCellValue((Double) objectArr[i]);
-                else
-                  cell.setCellValue((Integer) objectArr[i]);
+                if(key.equals("1"))
+                    cell.setCellValue((String) objectArr[i]);
+                else{
+                    if(i == 1)
+                        cell.setCellValue((String) objectArr[i]);
+                    else if (i==3)
+                        cell.setCellValue((Double) objectArr[i]);
+                    else
+                        cell.setCellValue((Integer) objectArr[i]);
+                }
+
+
             }
         }
 
